@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "mydb";
+    private static final String DATABASE_NAME = "project";
     private static final int DATABASE_VERSION = 1;
 
     public DBHelper(Context context) {
@@ -20,7 +20,8 @@ public class DBHelper extends SQLiteOpenHelper {
             "image TEXT," +
             "type TEXT," +
             "review TEXT," +
-            "created_at DATETIME DEFAULT (datetime('now','localtime'))," +
+            "date DATE DEFAULT (CURRENT_DATE)," +
+            "time TIME," +
             "price INTEGER);";
 
     // food 테이블 생성 쿼리
