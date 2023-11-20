@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="place">
+        <item>기숙사 식당</item>
+        <item>상록원</item>
+    </string-array>
+    <string-array name="when">
+        <item>아침</item>
+        <item>점심</item>
+        <item>저녁</item>
+    </string-array>
+
+
+</resources>
