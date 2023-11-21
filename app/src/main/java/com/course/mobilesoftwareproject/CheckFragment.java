@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
@@ -29,7 +30,7 @@ public class CheckFragment extends Fragment {
         // 추가: 캘린더 뷰와 텍스트 뷰 참조
         calendarView = view.findViewById(R.id.calendarView);
         dateText = view.findViewById(R.id.dateText);
-        LocalDate currentDate = LocalDate.now();
+        LocalDate currentDate = LocalDate.now(ZoneId.of("Asia/Seoul"));
         // 날짜를 특정 형식으로 포맷팅
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         String formattedDate = currentDate.format(formatter);
@@ -55,7 +56,6 @@ public class CheckFragment extends Fragment {
 
     public static String convertToKoreanDayOfWeek(String dayOfWeek) {
         String koreanDayOfWeek;
-
         switch (dayOfWeek) {
             case "Monday":
                 koreanDayOfWeek = "월";
@@ -81,7 +81,6 @@ public class CheckFragment extends Fragment {
             default:
                 koreanDayOfWeek = "알 수 없음";
         }
-
         return koreanDayOfWeek;
     }
 }

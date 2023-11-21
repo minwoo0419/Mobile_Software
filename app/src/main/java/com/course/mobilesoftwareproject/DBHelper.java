@@ -3,6 +3,7 @@ package com.course.mobilesoftwareproject;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -26,11 +27,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // food 테이블 생성 쿼리
     private static final String CREATE_FOOD_TABLE = "CREATE TABLE food (" +
-            "foodlist_id INTEGER PRIMARY KEY," +
             "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "foodlist_id INTEGER," +
             "name TEXT," +
-            "calorie INTEGER," +
-            "PRIMARY KEY (foodlist_id, id)," +
+            "calorie NUMERIC(10, 2)," +
             "FOREIGN KEY (foodlist_id) REFERENCES foodlist (id) ON DELETE CASCADE ON UPDATE CASCADE);";
 
     @Override
@@ -38,6 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 테이블 생성
         db.execSQL(CREATE_ORDER_TABLE);
         db.execSQL(CREATE_FOOD_TABLE);
+        Log.d("DB", "생성완료");
     }
 
     @Override

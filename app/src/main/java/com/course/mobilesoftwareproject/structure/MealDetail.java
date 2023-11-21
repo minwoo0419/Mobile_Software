@@ -13,7 +13,8 @@ public class MealDetail {
     private String time;
     private Long price;
     private List<FoodDetail> foods = new ArrayList<>();
-    private Long calories;
+    private Double calories;
+    private String name;
     public MealDetail(Long id, String place, String image, String type, String review, String date, String time, Long price, List<FoodDetail> foods){
         this.id = id;
         this.place = place;
@@ -24,8 +25,16 @@ public class MealDetail {
         this.time = time;
         this.price = price;
         this.foods = foods;
+        int flag = 0;
         for(int i = 0 ; i < foods.size() ; i++){
             calories += foods.get(i).getCalorie();
+            if (i < 2){
+                name = name + " " + foods.get(i).getName();
+            }
+            else if (i >= 2 && flag == 0){
+                name += "...";
+                flag = 1;
+            }
         }
     }
     public Long getId(){
@@ -55,7 +64,8 @@ public class MealDetail {
     public List<FoodDetail> getFoods(){
         return this.foods;
     }
-    public Long getCalories(){
+    public Double getCalories(){
         return this.calories;
     }
+    public String getName() {return this.name;}
 }

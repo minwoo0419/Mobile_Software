@@ -3,8 +3,8 @@ package com.course.mobilesoftwareproject.structure;
 public class FoodDetail {
     private Long id;
     private String name;
-    private Long calorie;
-    public FoodDetail(Long id, String name, Long calorie){
+    private Double calorie;
+    public FoodDetail(Long id, String name, Double calorie){
         this.id = id;
         this.name = name;
         this.calorie = calorie;
@@ -15,7 +15,7 @@ public class FoodDetail {
     public String getName(){
         return this.name;
     }
-    public Long getCalorie(){
+    public Double getCalorie(){
         return this.calorie;
     }
 }
