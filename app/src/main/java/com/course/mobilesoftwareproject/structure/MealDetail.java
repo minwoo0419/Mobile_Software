@@ -1,5 +1,7 @@
 package com.course.mobilesoftwareproject.structure;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +14,8 @@ public class MealDetail {
     private String date;
     private String time;
     private Long price;
-    private List<FoodDetail> foods = new ArrayList<>();
-    private Double calories;
+    private List<FoodDetail> foods;
+    private Double calories = 0.0;
     private String name;
     public MealDetail(Long id, String place, String image, String type, String review, String date, String time, Long price, List<FoodDetail> foods){
         this.id = id;
@@ -25,15 +27,19 @@ public class MealDetail {
         this.time = time;
         this.price = price;
         this.foods = foods;
-        int flag = 0;
         for(int i = 0 ; i < foods.size() ; i++){
-            calories += foods.get(i).getCalorie();
-            if (i < 2){
-                name = name + " " + foods.get(i).getName();
-            }
-            else if (i >= 2 && flag == 0){
-                name += "...";
-                flag = 1;
+            if (!foods.get(i).getName().equals("")){
+                calories += foods.get(i).getCalorie();
+                if (i == 0){
+                    name = foods.get(i).getName();
+                }
+                else if (i == 1){
+                    name = name + ", " + foods.get(i).getName();
+                }
+                else if (i >= 2 && foods.size() != 3){
+                    name += "...";
+                    break;
+                }
             }
         }
     }
@@ -47,7 +53,18 @@ public class MealDetail {
         return this.image;
     }
     public String getType(){
-        return this.type;
+        switch(this.type){
+            case "아침":
+                return "BreakFast";
+            case "점심":
+                return "Lunch";
+            case "저녁":
+                return "Dinner";
+            case "디저트":
+                return "Dessert";
+            default:
+                return "알 수 없음";
+        }
     }
     public String getReview(){
         return this.review;

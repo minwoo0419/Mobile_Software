@@ -1,4 +1,5 @@
 package com.course.mobilesoftwareproject;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,10 +16,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+
+import com.bumptech.glide.Glide;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +35,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 class Food{
@@ -51,10 +59,10 @@ public class InputPage extends AppCompatActivity {
     private String[] places = {"상록원", "기숙사 식당", "그루터기"};
     private String[] whens = {"아침", "점심", "저녁", "디저트"};
     private LinearLayout containerLayout;
-    private ActivityResultLauncher<Intent> imagePickerLauncher;
     private String selectedPlace;
     private String selectedWhen;
     private List<EditText> editTexts = new ArrayList<>();
+    ImageView imageView;
     SQLiteDatabase sqlDB;
     DBHelper dbHelper = new DBHelper(this);
     Uri selectedImageUri;
@@ -111,19 +119,13 @@ public class InputPage extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+        editTexts.add(findViewById(R.id.foodName1));
 
-        ImageView imageView = findViewById(R.id.inputFoodImg);
-        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        selectedImageUri = result.getData().getData();
-                        imageView.setImageURI(selectedImageUri);
-                    }
-                });
+        imageView = findViewById(R.id.inputFoodImg);
     }
 
+    @SuppressLint("ResourceAsColor")
     public void addNewEditText(View view) {
-        editTexts.add(findViewById(R.id.foodName1));
         containerLayout = findViewById(R.id.inputFoodNameLayout);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
                         (LinearLayout.LayoutParams.MATCH_PARENT /* layout_width */,
@@ -135,24 +137,27 @@ public class InputPage extends AppCompatActivity {
         editText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
         Typeface customTypeface = ResourcesCompat.getFont(this, R.font.lato_regular);
         editText.setTypeface(customTypeface);
+        editText.setTextColor(R.color.black);
         containerLayout.addView(editText);
         editTexts.add(editText);
     }
 
     public void onImageViewClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        imagePickerLauncher.launch(intent);
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        launcher.launch(intent);
     }
     public void backListener(View view){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+        finish();
     }
-
+    @SuppressLint("Range")
     public void storeSql(View view){
-        ImageView image = findViewById(R.id.inputFoodImg);
-        LocalDate currentDate = LocalDate.now(ZoneId.of("Asia/Seoul"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String date = currentDate.format(formatter);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH)+1;
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        String date = year + "-" + month + "-" + dayOfMonth;
         EditText time = findViewById(R.id.editTextTime);
         EditText price = findViewById(R.id.price);
         EditText review = findViewById(R.id.review);
@@ -168,18 +173,22 @@ public class InputPage extends AppCompatActivity {
                 price.getText().toString() + ");"
         );
         sqlDB = dbHelper.getReadableDatabase();
-        Cursor cursor = sqlDB.rawQuery("SELECT last_insert_rowid()", null);
+        Cursor cursor = sqlDB.rawQuery("SELECT last_insert_rowid() as lastId", null);
         String lastInsertedId = "-1"; // Default value if something goes wrong
         if (cursor != null && cursor.moveToFirst()) {
-            lastInsertedId = cursor.toString();
+            lastInsertedId = cursor.getString(cursor.getColumnIndex("lastId"));
             cursor.close();
         }
+        Log.d("LastId", lastInsertedId);
         sqlDB = dbHelper.getWritableDatabase();
-        if (lastInsertedId.equals("-1")){
+        if (!lastInsertedId.equals("-1")){
             for (int i = 0 ; i < editTexts.size() ; i++){
                 String foodName = editTexts.get(i).getText().toString();
                 readData(foodName);
-                String cal = fo.getCal().toString();
+                Double c = fo.getCal();
+                String cal = "0";
+                if (c != null)
+                    cal = c.toString();
                 sqlDB.execSQL(
                         "INSERT INTO food(foodlist_id, name, calorie) VALUES('" +
                                 lastInsertedId + "' ,'" +
@@ -192,4 +201,21 @@ public class InputPage extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>()
+            {
+                @Override
+                public void onActivityResult(ActivityResult result)
+                {
+                    if (result.getResultCode() == RESULT_OK)
+                    {
+                        Intent intent = result.getData();
+                        Uri uri = intent.getData();
+                        selectedImageUri = uri;
+                        Glide.with(InputPage.this)
+                                .load(uri)
+                                .into(imageView);
+                    }
+                }
+            });
 }

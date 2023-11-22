@@ -1,23 +1,19 @@
 package com.course.mobilesoftwareproject;
-
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.course.mobilesoftwareproject.structure.MealDetail;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> {
-    private List<MealDetail> foodList = new ArrayList<>();
+    private List<MealDetail> foodList;
     public MealAdapter(List<MealDetail> foodList){
         this.foodList = foodList;
     }
@@ -34,7 +30,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
-                Intent intent = new Intent(context, InputPage.class);
+                Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("id",data.getId());
                 context.startActivity(intent);
             }
@@ -62,9 +58,15 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
         public void bind(MealDetail data) {
             type.setText(data.getType());
             price.setText(data.getPrice().toString());
-            cal.setText(data.getCalories().toString());
+            String calStr = String.format("%.2f", data.getCalories());
+            cal.setText(calStr);
             name.setText(data.getName());
-            Glide.with(itemView.getContext()).load(data.getImage()).into(image);
+            Glide.with(itemView.getContext())
+                    .load(data.getImage())
+                    .circleCrop()
+                    .fitCenter()
+                    .into(image);
+            Log.d("getImage()", data.getImage());
         }
     }
 }

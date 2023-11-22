@@ -14,34 +14,40 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp">
 
+        <TextView
+            android:id="@+id/checkTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="월간 조회"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="0dp"
             android:layout_height="300dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/calander_radius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back"
-            app:layout_constraintBottom_toTopOf="@+id/calendarView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/checkTitle" />
 
         <TextView
             android:id="@+id/dateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/lato_bold"
             android:text="TextView"
-            android:textSize="22dp"
+            android:textColor="@color/black"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
@@ -50,10 +56,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/lato_bold"
             android:text="식사"
-            android:textSize="22dp"
+            android:textColor="@color/black"
+            android:textSize="18dp"
             app:layout_constraintStart_toEndOf="@+id/dateText"
             app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
@@ -61,6 +68,8 @@
             android:id="@+id/recyclerView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,20 +89,24 @@
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="160dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:fontFamily="@font/lato_bold"
+                android:gravity="center"
                 android:text="칼로리 총합"
-                android:textSize="20dp"
-                android:fontFamily="@font/lato_bold"/>
+                android:textColor="@color/black"
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/lato_bold"
+                android:gravity="center"
                 android:text="TextView"
-                android:textSize="24dp"
-                android:fontFamily="@font/lato_bold"/>
+                android:textColor="@color/black"
+                android:textSize="24dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -111,11 +124,13 @@
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="160dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/lato_bold"
+                android:gravity="center"
                 android:text="소비"
-                android:textSize="20dp" />
+                android:textColor="@color/black"
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -123,7 +138,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/lato_bold"
+                android:gravity="center"
                 android:text="TextView"
+                android:textColor="@color/black"
                 android:textSize="24dp" />
         </LinearLayout>
 
