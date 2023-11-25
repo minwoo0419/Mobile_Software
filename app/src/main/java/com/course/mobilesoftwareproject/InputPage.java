@@ -202,6 +202,7 @@ public class InputPage extends AppCompatActivity {
                 InputPage.this.getContentResolver().insert(FoodProvider.CONTENT_URI, foodValues);
             }
         }
+        Toast.makeText(this, "입력이 완료되었습니다.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }

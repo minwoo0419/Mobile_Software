@@ -14,13 +14,13 @@ import java.util.List;
 public class MealDetailRepository {
 
     private DBHelper dbHelper;
-
     public MealDetailRepository(Context context) {
         dbHelper = new DBHelper(context);
     }
 
     // 모든 식사 정보 가져오기
     public List<MealDetail> getAllMealDetails() {
+
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] projection = {
@@ -45,7 +45,6 @@ public class MealDetailRepository {
         );
 
         List<MealDetail> mealDetails = new ArrayList<>();
-
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("id"));
@@ -72,6 +71,7 @@ public class MealDetailRepository {
         return mealDetails;
     }
     public MealDetail getMealDetail(Long Id) {
+
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] projection = {
@@ -116,12 +116,9 @@ public class MealDetailRepository {
 
                 mealDetail = new MealDetail(id, place, image, type, review, date, time, price, foodDetails);
             }
-
             cursor.close();
         }
-
         db.close();
-
         return mealDetail;
     }
     public List<MealDetail> getMealDetailByDate(String toDay) {
@@ -150,7 +147,6 @@ public class MealDetailRepository {
                 null,
                 null
         );
-
         List<MealDetail> mealDetails = new ArrayList<>();
 
         if (cursor != null) {
@@ -170,14 +166,12 @@ public class MealDetailRepository {
                 MealDetail mealDetail = new MealDetail(id, place, image, type, review, date, time, price, foodDetails);
                 mealDetails.add(mealDetail);
             }
-
             cursor.close();
         }
-
         db.close();
-
         return mealDetails;
     }
+
     //특정월의 값 구하기
     public List<MealDetail> getMealDetailByMonth(String yearMonth) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -277,12 +271,8 @@ public class MealDetailRepository {
                 FoodDetail foodDetail = new FoodDetail(id, name, calorie);
                 foodDetails.add(foodDetail);
             }
-
             cursor.close();
         }
-
-        db.close();
-
         return foodDetails;
     }
 }
