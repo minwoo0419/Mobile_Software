@@ -1,5 +1,7 @@
 package com.course.mobilesoftwareproject.structure;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 public class MealDetail {
     private Long id;
     private String place;
-    private String image;
+    private byte[] image;
     private String type;
     private String review;
     private String date;
@@ -17,7 +19,7 @@ public class MealDetail {
     private List<FoodDetail> foods;
     private Double calories = 0.0;
     private String name;
-    public MealDetail(Long id, String place, String image, String type, String review, String date, String time, Long price, List<FoodDetail> foods){
+    public MealDetail(Long id, String place, byte[] image, String type, String review, String date, String time, Long price, List<FoodDetail> foods){
         this.id = id;
         this.place = place;
         this.image = image;
@@ -49,8 +51,11 @@ public class MealDetail {
     public String getPlace(){
         return this.place;
     }
-    public String getImage(){
-        return this.image;
+    public Bitmap getImage(){
+        if (image != null)
+            return BitmapFactory.decodeByteArray(this.image, 0, image.length);
+        else
+            return null;
     }
     public String getType(){
         switch(this.type){

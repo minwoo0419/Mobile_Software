@@ -3,6 +3,7 @@ package com.course.mobilesoftwareproject;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 
 import com.course.mobilesoftwareproject.structure.FoodDetail;
 import com.course.mobilesoftwareproject.structure.MealDetail;
@@ -49,7 +50,7 @@ public class MealDetailRepository {
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("id"));
                 String place = cursor.getString(cursor.getColumnIndexOrThrow("place"));
-                String image = cursor.getString(cursor.getColumnIndexOrThrow("image"));
+                byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
                 String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 String review = cursor.getString(cursor.getColumnIndexOrThrow("review"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
@@ -103,7 +104,7 @@ public class MealDetailRepository {
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("id"));
                 String place = cursor.getString(cursor.getColumnIndexOrThrow("place"));
-                String image = cursor.getString(cursor.getColumnIndexOrThrow("image"));
+                byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
                 String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 String review = cursor.getString(cursor.getColumnIndexOrThrow("review"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
@@ -156,7 +157,7 @@ public class MealDetailRepository {
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("id"));
                 String place = cursor.getString(cursor.getColumnIndexOrThrow("place"));
-                String image = cursor.getString(cursor.getColumnIndexOrThrow("image"));
+                byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
                 String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 String review = cursor.getString(cursor.getColumnIndexOrThrow("review"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
@@ -216,7 +217,7 @@ public class MealDetailRepository {
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("id"));
                 String place = cursor.getString(cursor.getColumnIndexOrThrow("place"));
-                String image = cursor.getString(cursor.getColumnIndexOrThrow("image"));
+                byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
                 String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 String review = cursor.getString(cursor.getColumnIndexOrThrow("review"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));

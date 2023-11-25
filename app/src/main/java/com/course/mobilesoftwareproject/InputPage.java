@@ -1,8 +1,13 @@
 package com.course.mobilesoftwareproject;
 import android.annotation.SuppressLint;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -27,6 +33,9 @@ import androidx.core.content.res.ResourcesCompat;
 import com.bumptech.glide.Glide;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -66,6 +75,7 @@ public class InputPage extends AppCompatActivity {
     SQLiteDatabase sqlDB;
     DBHelper dbHelper = new DBHelper(this);
     Uri selectedImageUri;
+    byte[] img;
     Food fo = new Food();
     private void readData(String name){
         InputStream is = getResources().openRawResource(R.raw.kcal);
@@ -144,7 +154,7 @@ public class InputPage extends AppCompatActivity {
 
     public void onImageViewClick(View view) {
         Intent intent = new Intent();
-        intent.setType("image/*");
+        intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         launcher.launch(intent);
     }
@@ -161,26 +171,22 @@ public class InputPage extends AppCompatActivity {
         EditText time = findViewById(R.id.editTextTime);
         EditText price = findViewById(R.id.price);
         EditText review = findViewById(R.id.review);
-        String img = null;
-        if (selectedImageUri != null)
-            img = selectedImageUri.toString();
-        sqlDB = dbHelper.getWritableDatabase();
-        sqlDB.execSQL("INSERT INTO foodlist(place, image, type, review, date, time, price) VALUES('" +
-                selectedPlace + "','" + img + "' , '" +
-                selectedWhen + "' , '" +
-                review.getText().toString() + "' , '" +
-                date + "' , '" + time.getText().toString() + "', " +
-                price.getText().toString() + ");"
-        );
-        sqlDB = dbHelper.getReadableDatabase();
-        Cursor cursor = sqlDB.rawQuery("SELECT last_insert_rowid() as lastId", null);
-        String lastInsertedId = "-1"; // Default value if something goes wrong
-        if (cursor != null && cursor.moveToFirst()) {
-            lastInsertedId = cursor.getString(cursor.getColumnIndex("lastId"));
-            cursor.close();
+        ContentValues foodListValues = new ContentValues();
+        foodListValues.put(MyContentProvider.DATE, date);
+        foodListValues.put(MyContentProvider.PLACE, selectedPlace);
+        foodListValues.put(MyContentProvider.TYPE, selectedWhen);
+        foodListValues.put(MyContentProvider.REVIEW, review.getText().toString());
+        foodListValues.put(MyContentProvider.TIME, time.getText().toString());
+        foodListValues.put(MyContentProvider.PRICE, price.getText().toString());
+        Log.d("imageByte", img.toString());
+        foodListValues.put(MyContentProvider.IMAGE_URI,img);
+        Uri insertedItemUri = InputPage.this.getContentResolver().insert(MyContentProvider.CONTENT_URI, foodListValues);
+        String lastInsertedId = null;
+
+        if (insertedItemUri != null) {
+            lastInsertedId = insertedItemUri.getLastPathSegment();
+            Log.d("lastInsertedId", lastInsertedId);
         }
-        Log.d("LastId", lastInsertedId);
-        sqlDB = dbHelper.getWritableDatabase();
         if (!lastInsertedId.equals("-1")){
             for (int i = 0 ; i < editTexts.size() ; i++){
                 String foodName = editTexts.get(i).getText().toString();
@@ -189,15 +195,13 @@ public class InputPage extends AppCompatActivity {
                 String cal = "0";
                 if (c != null)
                     cal = c.toString();
-                sqlDB.execSQL(
-                        "INSERT INTO food(foodlist_id, name, calorie) VALUES('" +
-                                lastInsertedId + "' ,'" +
-                                foodName + "', " +
-                                cal + ");"
-                );
+                ContentValues foodValues = new ContentValues();
+                foodValues.put(FoodProvider.FOOD_LIST_ID, lastInsertedId.toString());
+                foodValues.put(FoodProvider.NAME, foodName);
+                foodValues.put(FoodProvider.CALORIE, cal);
+                InputPage.this.getContentResolver().insert(FoodProvider.CONTENT_URI, foodValues);
             }
         }
-        sqlDB.close();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
@@ -212,10 +216,21 @@ public class InputPage extends AppCompatActivity {
                         Intent intent = result.getData();
                         Uri uri = intent.getData();
                         selectedImageUri = uri;
-                        Glide.with(InputPage.this)
-                                .load(uri)
-                                .into(imageView);
+                        imageView.setImageURI(selectedImageUri);
+                        try{
+                            ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), selectedImageUri);
+                            Bitmap bitmap = ImageDecoder.decodeBitmap(source);
+                            img = getBytesFromBitmap(bitmap);
+                        }
+                        catch (IOException e){
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
+    public byte[] getBytesFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
 }

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.course.mobilesoftwareproject.structure.MealDetail;
 import java.util.List;
 
@@ -66,7 +67,6 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
                     .circleCrop()
                     .fitCenter()
                     .into(image);
-            Log.d("getImage()", data.getImage());
         }
     }
 }

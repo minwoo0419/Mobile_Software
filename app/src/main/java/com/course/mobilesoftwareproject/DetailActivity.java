@@ -10,14 +10,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.course.mobilesoftwareproject.structure.FoodDetail;
 import com.course.mobilesoftwareproject.structure.MealDetail;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -46,15 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         whereView.setText(mealDetail.getPlace());
         priceView.setText("총 " + mealDetail.getPrice().toString() + "원");
         reviewView.setText(mealDetail.getReview());
-        try {
-            InputStream inputStream = getContentResolver().openInputStream(Uri.parse(mealDetail.getImage()));
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            imageView.setImageBitmap(bitmap);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            // 이미지를 찾을 수 없는 경우 기본 이미지 설정 또는 오류 처리 로직 추가
-            imageView.setImageResource(R.drawable.add);
-        }
+        imageView.setImageBitmap(mealDetail.getImage());
         RecyclerView recyclerView = findViewById(R.id.detailRecycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         DetailAdapter adapter = new DetailAdapter(foodDetailList);

@@ -1,24 +1,34 @@
 package com.course.mobilesoftwareproject;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "project";
+    private static final String DATABASE_NAME = "projects";
     private static final int DATABASE_VERSION = 1;
+    private static DBHelper dbHelper = null;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
+    public static DBHelper getInstance(Context context) {
+        if (dbHelper == null) {
+            dbHelper = new DBHelper(context);
+        }
+        return dbHelper;
+    }
     // foodlist 테이블 생성 쿼리
     private static final String CREATE_ORDER_TABLE = "CREATE TABLE foodlist (" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "place TEXT," +
-            "image TEXT," +
+            "image BLOB," +
             "type TEXT," +
             "review TEXT," +
             "date DATE DEFAULT (CURRENT_DATE)," +
@@ -47,4 +57,18 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS food");
         onCreate(db);
     }
+    public long insert(ContentValues addValue, String table) {
+        return getWritableDatabase().insert(table, null, addValue);
+    }
+
+    public Cursor query(String table, String[] columns, String selection, String[] selectionArgs,
+                        String groupBy, String having, String orderBy) {
+        return getReadableDatabase().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+    }
+
+    public int delete(String whereClause, String[] whereArgs, String table) {
+        return getWritableDatabase().delete(table, whereClause,
+                whereArgs);
+    }
+
 }
