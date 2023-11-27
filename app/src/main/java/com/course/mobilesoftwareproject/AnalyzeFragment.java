@@ -30,6 +30,7 @@ public class AnalyzeFragment extends Fragment {
     Double avgBreak, avgLunch, avgDinner, avgDessert;
     Long avgPay;
     TextView breakView, lunchView, dinnerView, dessertView, dateView;
+    TextView totBreak, totLunch, totCal, totDinner, totDessert;
     ImageView minus, plus;
     ProgressBar pBreak, pLunch, pDinner, pDessert, pCal;
 
@@ -58,6 +59,16 @@ public class AnalyzeFragment extends Fragment {
         pLunch = view.findViewById(R.id.progresslunch);
         pDinner = view.findViewById(R.id.progressdinner);
         pDessert = view.findViewById(R.id.progressdessert);
+        totBreak = view.findViewById(R.id.tot_break);
+        totLunch = view.findViewById(R.id.tot_lunch);
+        totDinner = view.findViewById(R.id.tot_dinner);
+        totDessert = view.findViewById(R.id.tot_dessert);
+        totCal = view.findViewById(R.id.tot_cal);
+        totBreak.setText(totalBreak.toString()+"원");
+        totLunch.setText(totalLunch.toString()+"원");
+        totDinner.setText(totalDinner.toString()+"원");
+        totDessert.setText(totalDessert.toString()+"원");
+        totCal.setText(totalCal.toString()+"kcal");
         pCal = view.findViewById(R.id.progresscal);
         pBreak.setMax(620000);
         pLunch.setMax(620000);
@@ -70,10 +81,10 @@ public class AnalyzeFragment extends Fragment {
         pDessert.setProgress(totalDessert.intValue());
         pCal.setProgress(totalCal.intValue());
         dateView.setText(day);
-        breakView.setText(String.format("%.2f", avgBreak));
-        lunchView.setText(String.format("%.2f", avgLunch));
-        dinnerView.setText(String.format("%.2f",avgDinner));
-        dessertView.setText(String.format("%.2f",avgDessert));
+        breakView.setText(avgBreak.toString());
+        lunchView.setText(avgLunch.toString());
+        dinnerView.setText(avgDinner.toString());
+        dessertView.setText(avgDessert.toString());
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,10 +114,15 @@ public class AnalyzeFragment extends Fragment {
         day = year + "-" + month;
         dateView.setText(day);
         calcul(day);
-        breakView.setText(String.format("%.2f", avgBreak));
-        lunchView.setText(String.format("%.2f", avgLunch));
-        dinnerView.setText(String.format("%.2f",avgDinner));
-        dessertView.setText(String.format("%.2f",avgDessert));
+        breakView.setText(avgBreak.toString());
+        lunchView.setText(avgLunch.toString());
+        dinnerView.setText(avgDinner.toString());
+        dessertView.setText(avgDessert.toString());
+        totBreak.setText(totalBreak.toString()+"원");
+        totLunch.setText(totalLunch.toString()+"원");
+        totDinner.setText(totalDinner.toString()+"원");
+        totDessert.setText(totalDessert.toString()+"원");
+        totCal.setText(totalCal.toString()+"kcal");
         pBreak.setProgress(totalBreak.intValue());
         pLunch.setProgress(totalLunch.intValue());
         pDinner.setProgress(totalDinner.intValue());
@@ -127,10 +143,15 @@ public class AnalyzeFragment extends Fragment {
         day = year + "-" + month;
         dateView.setText(day);
         calcul(day);
-        breakView.setText(String.format("%.2f", avgBreak));
-        lunchView.setText(String.format("%.2f", avgLunch));
-        dinnerView.setText(String.format("%.2f",avgDinner));
-        dessertView.setText(String.format("%.2f",avgDessert));
+        breakView.setText(avgBreak.toString());
+        lunchView.setText(avgLunch.toString());
+        dinnerView.setText(avgDinner.toString());
+        dessertView.setText(avgDessert.toString());
+        totBreak.setText(totalBreak.toString()+"원");
+        totLunch.setText(totalLunch.toString()+"원");
+        totDinner.setText(totalDinner.toString()+"원");
+        totDessert.setText(totalDessert.toString()+"원");
+        totCal.setText(totalCal.toString()+"kcal");
         pBreak.setProgress(totalBreak.intValue());
         pLunch.setProgress(totalLunch.intValue());
         pDinner.setProgress(totalDinner.intValue());

@@ -15,20 +15,18 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
         tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/textView2"
+        <ImageView
+            android:id="@+id/logo"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"
-            android:text="LOGO"
-            android:textAlignment="center"
-            android:textSize="48sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logoname" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,19 +35,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintTop_toBottomOf="@+id/logo">
 
-
-            <ImageView
-                android:id="@+id/addBtn"
-                android:layout_width="24dp"
-                android:layout_height="37dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/add" />
 
             <TextView
                 android:id="@+id/todayList"
@@ -58,11 +45,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/lato_bold"
-                android:textColor="@color/black"
                 android:text="오늘의 기록"
+                android:textColor="@color/black"
                 android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/addBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

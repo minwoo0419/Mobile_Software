@@ -53,13 +53,13 @@ public class HomeFragment extends Fragment {
         TextView priceView = view.findViewById(R.id.todayPaynum);
         calView.setText(String.format("%.2f", todayCal) + "kcal");
         priceView.setText(todayPay.toString() + "원");
-        ImageView button = view.findViewById(R.id.addBtn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addMealListener(view);
-            }
-        });
+//        ImageView button = view.findViewById(R.id.addBtn);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addMealListener(view);
+//            }
+//        });
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -68,8 +68,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
-    public void addMealListener(View view){
-        Intent intent = new Intent(getActivity(), InputPage.class);
-        startActivity(intent);
-    }
+//    public void addMealListener(View view){
+//        Intent intent = new Intent(getActivity(), InputPage.class);
+//        startActivity(intent);
+//    }
 }

@@ -6,6 +6,12 @@
         android:icon="@drawable/ic_home"
         android:enabled="true"/>
     <item
+        android:id="@+id/input"
+        android:title="기록"
+        android:icon="@drawable/write"
+        android:enabled="true"
+        ></item>
+    <item
         android:id="@+id/analyze"
         android:title="분석"
         android:icon="@drawable/ic_calc"

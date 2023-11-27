@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/food_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:clickable="true"
     android:background="@drawable/food_list_item_background"
-    android:padding="10dp"
 
-    >
+    android:padding="10dp">
 
         <TextView
             android:id="@+id/type"
@@ -40,9 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/lato_bold"
-            android:textColor="@color/black"
             android:text="샐러드"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/calNum"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,8 +90,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_regular"
             android:text="kcal"
-            android:textColor="@color/black"
             android:textAlignment="viewStart"
+            android:textColor="@color/black"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/calNum" />
@@ -102,8 +103,8 @@
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/lato_regular"
             android:text="원"
-            android:textColor="@color/black"
             android:textAlignment="textStart"
+            android:textColor="@color/black"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

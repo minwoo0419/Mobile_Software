@@ -46,11 +46,11 @@
                 android:id="@+id/analDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@color/black"
                 android:fontFamily="@font/lato_bold"
-                android:textAlignment="center"
                 android:gravity="center"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="18dp" />
 
             <ImageView
@@ -67,9 +67,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/lato_bold"
             android:text="Total Calories"
             android:textColor="@color/black"
-            android:fontFamily="@font/lato_bold"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -79,9 +79,9 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="250dp"
             android:layout_height="20dp"
-            android:progressDrawable="@drawable/progress"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
+            android:progressDrawable="@drawable/progress"
             android:progressTint="@color/bigbtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
@@ -93,8 +93,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/lato_regular"
-            android:textColor="@color/black"
             android:text="Calories"
+            android:textColor="@color/black"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
@@ -105,9 +105,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="50dp"
+            android:fontFamily="@font/lato_bold"
             android:text="Total Price"
             android:textColor="@color/black"
-            android:fontFamily="@font/lato_bold"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
@@ -118,9 +118,9 @@
             android:layout_height="20dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato_regular"
             android:text="BreakFast"
             android:textColor="@color/black"
-            android:fontFamily="@font/lato_regular"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -132,8 +132,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/lato_regular"
-            android:textColor="@color/black"
             android:text="Lunch"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -143,9 +143,9 @@
             android:layout_height="20dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
             android:text="Dinner"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -156,8 +156,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/lato_regular"
-            android:textColor="@color/black"
             android:text="Dessert"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -167,19 +167,19 @@
             android:layout_width="250dp"
             android:layout_height="20dp"
             android:layout_marginTop="20dp"
-            android:progressDrawable="@drawable/progress"
             android:layout_marginEnd="30dp"
+            android:progressDrawable="@drawable/progress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
         <ProgressBar
             android:id="@+id/progresslunch"
             style="?android:attr/progressBarStyleHorizontal"
-            android:progressDrawable="@drawable/progress"
             android:layout_width="250dp"
             android:layout_height="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
+            android:progressDrawable="@drawable/progress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressbreak" />
 
@@ -189,8 +189,8 @@
             android:layout_width="250dp"
             android:layout_height="20dp"
             android:layout_marginTop="20dp"
-            android:progressDrawable="@drawable/progress"
             android:layout_marginEnd="30dp"
+            android:progressDrawable="@drawable/progress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progresslunch" />
 
@@ -199,9 +199,9 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="250dp"
             android:layout_height="20dp"
-            android:progressDrawable="@drawable/progress"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
+            android:progressDrawable="@drawable/progress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressdinner" />
 
@@ -212,8 +212,8 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/lato_bold"
-            android:textColor="@color/black"
             android:text="Average Price"
+            android:textColor="@color/black"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
@@ -239,12 +239,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="구분"
-                    android:textColor="@color/black"
                     android:background="@drawable/analyze_title"
                     android:fontFamily="@font/lato_bold"
-                    android:textAlignment="center"
                     android:gravity="center"
+                    android:text="구분"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
 
                 <TextView
@@ -252,12 +252,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="평균 비용"
-                    android:textColor="@color/black"
                     android:background="@drawable/analyze_title"
                     android:fontFamily="@font/lato_bold"
-                    android:textAlignment="center"
                     android:gravity="center"
+                    android:text="평균 비용"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
             </LinearLayout>
 
@@ -270,13 +270,13 @@
                     android:id="@+id/textView26"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/analyze"
                     android:layout_weight="1"
-                    android:text="BreakFast"
-                    android:textColor="@color/black"
+                    android:background="@drawable/analyze"
                     android:fontFamily="@font/lato_bold"
-                    android:textAlignment="center"
                     android:gravity="center"
+                    android:text="BreakFast"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
 
                 <TextView
@@ -285,11 +285,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/analyze"
-                    android:text="TextView"
-                    android:textColor="@color/black"
-                    android:gravity="center"
                     android:fontFamily="@font/lato_regular"
-                    android:textAlignment="center" />
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -301,26 +301,26 @@
                     android:id="@+id/textView28"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/black"
-                    android:background="@drawable/analyze"
                     android:layout_weight="1"
-                    android:text="Lunch"
+                    android:background="@drawable/analyze"
                     android:fontFamily="@font/lato_bold"
-                    android:textAlignment="center"
                     android:gravity="center"
+                    android:text="Lunch"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/avgLunch"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/black"
                     android:layout_weight="1"
-                    android:text="TextView"
                     android:background="@drawable/analyze"
                     android:fontFamily="@font/lato_regular"
-                    android:textAlignment="center"
                     android:gravity="center"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
             </LinearLayout>
 
@@ -333,13 +333,13 @@
                     android:id="@+id/textView31"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/analyze"
-                    android:textColor="@color/black"
                     android:layout_weight="1"
+                    android:background="@drawable/analyze"
                     android:fontFamily="@font/lato_bold"
+                    android:gravity="center"
                     android:text="Dinner"
                     android:textAlignment="center"
-                    android:gravity="center"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
 
                 <TextView
@@ -347,12 +347,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="TextView"
                     android:background="@drawable/analyze"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
-                    android:textAlignment="center" />
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -365,12 +365,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="Dessert"
                     android:background="@drawable/analyze"
                     android:fontFamily="@font/lato_bold"
-                    android:textAlignment="center"
                     android:gravity="center"
+                    android:text="Dessert"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
 
                 <TextView
@@ -379,15 +379,86 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/analyze"
-                    android:textColor="@color/black"
-                    android:text="TextView"
                     android:fontFamily="@font/lato_regular"
-                    android:textAlignment="center"
                     android:gravity="center"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tot_cal"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        <TextView
+            android:id="@+id/tot_break"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        <TextView
+            android:id="@+id/tot_lunch"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        <TextView
+            android:id="@+id/tot_dinner"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        <TextView
+            android:id="@+id/tot_dessert"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

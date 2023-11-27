@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     return true;
                 }
+                case R.id.input: {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.mainLayout, new InputFragment())
+                            .commit();
+                    return true;
+                }
                 case R.id.check: {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.mainLayout, new CheckFragment())

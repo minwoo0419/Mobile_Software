@@ -1,5 +1,9 @@
 package com.course.mobilesoftwareproject;
+import static android.app.Activity.RESULT_OK;
+
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -14,13 +18,19 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -29,6 +39,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
@@ -64,16 +75,18 @@ class Food{
     }
 }
 
-public class InputPage extends AppCompatActivity {
+public class InputFragment extends Fragment {
     private String[] places = {"상록원", "기숙사 식당", "그루터기"};
     private String[] whens = {"아침", "점심", "저녁", "디저트"};
     private LinearLayout containerLayout;
     private String selectedPlace;
     private String selectedWhen;
     private List<EditText> editTexts = new ArrayList<>();
+    private TextView dateText, timeText;
+    EditText price, review;
     ImageView imageView;
     SQLiteDatabase sqlDB;
-    DBHelper dbHelper = new DBHelper(this);
+    DBHelper dbHelper = new DBHelper(this.getContext());
     Uri selectedImageUri;
     byte[] img;
     Food fo = new Food();
@@ -100,15 +113,33 @@ public class InputPage extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    private void updateDateAndTime() {
+        // Set current date
+        Calendar currentDate = Calendar.getInstance();
+        String currentDateStr = currentDate.get(Calendar.YEAR) + "-"
+                + (currentDate.get(Calendar.MONTH) + 1) + "-"
+                + currentDate.get(Calendar.DAY_OF_MONTH);
+        dateText.setText(currentDateStr);
+
+        // Set current time
+        String currentTimeStr = String.format("%02d:%02d",
+                currentDate.get(Calendar.HOUR_OF_DAY),
+                currentDate.get(Calendar.MINUTE));
+        timeText.setText(currentTimeStr);
+    }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.input_page);
-        Spinner place = findViewById(R.id.place);
-        Spinner when = findViewById(R.id.when);
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState){
+        View view = inflater.inflate(R.layout.fragment_input, container, false);
+        Spinner place = view.findViewById(R.id.place);
+        Spinner when = view.findViewById(R.id.when);
         ArrayAdapter placeAdapter, whenAdapter;
-        placeAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, places);
-        whenAdapter = new ArrayAdapter(this, androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item, whens);
+        placeAdapter = new ArrayAdapter(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, places);
+        whenAdapter = new ArrayAdapter(getContext(), androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item, whens);
         place.setAdapter(placeAdapter);
         when.setAdapter(whenAdapter);
         place.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -129,23 +160,114 @@ public class InputPage extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-        editTexts.add(findViewById(R.id.foodName1));
+        editTexts.add(view.findViewById(R.id.foodName1));
 
-        imageView = findViewById(R.id.inputFoodImg);
+        imageView = view.findViewById(R.id.inputFoodImg);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onImageViewClick(view);
+            }
+        });
+        ImageView addbtn = view.findViewById(R.id.foodNameAdd);
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewEditText(view);
+            }
+        });
+        Button button = view.findViewById(R.id.inputBtn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                storeSql(view);
+            }
+        });
+        dateText = view.findViewById(R.id.editDateText);
+        timeText = view.findViewById(R.id.editTimeText);
+        updateDateAndTime();
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
+        timeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog();
+            }
+        });
+        price = view.findViewById(R.id.price);
+        review = view.findViewById(R.id.review);
+        return view;
     }
+    private void showDatePickerDialog() {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        // Create a DatePickerDialog with a custom theme
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireActivity(),
+                R.style.DialogDatePicker_Theme, // Set your custom theme here
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Update the TextView with the selected date
+                        String selectedDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        dateText.setText(selectedDate);
+                    }
+                },
+                year,
+                month,
+                day
+        );
+
+        datePickerDialog.show();
+    }
+
+    private void showTimePickerDialog() {
+        Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        // Create a TimePickerDialog with a custom theme
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                requireActivity(),
+                R.style.DialogDatePicker_Theme, // Set your custom theme here
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        // Update the TextView with the selected time
+                        String selectedTime = String.format("%02d:%02d", hourOfDay, minute);
+                        timeText.setText(selectedTime);
+                    }
+                },
+                hour,
+                minute,
+                true
+        );
+
+        timePickerDialog.show();
+    }
+
+
 
     @SuppressLint("ResourceAsColor")
     public void addNewEditText(View view) {
-        containerLayout = findViewById(R.id.inputFoodNameLayout);
+        containerLayout = view.findViewById(R.id.inputFoodNameLayout);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                        (LinearLayout.LayoutParams.MATCH_PARENT /* layout_width */,
-                                LinearLayout.LayoutParams.WRAP_CONTENT /* layout_height */,
-                                1f /* layout_weight */);
-        EditText editText = new EditText(this);
+                (LinearLayout.LayoutParams.MATCH_PARENT /* layout_width */,
+                        LinearLayout.LayoutParams.WRAP_CONTENT /* layout_height */,
+                        1f /* layout_weight */);
+        EditText editText = new EditText(getContext());
         editText.setHint("음식 이름을 입력해주세요.");
         editText.setLayoutParams(layoutParams);
         editText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-        Typeface customTypeface = ResourcesCompat.getFont(this, R.font.lato_regular);
+        Typeface customTypeface = ResourcesCompat.getFont(getContext(), R.font.lato_regular);
         editText.setTypeface(customTypeface);
         editText.setTextColor(R.color.black);
         containerLayout.addView(editText);
@@ -158,29 +280,19 @@ public class InputPage extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         launcher.launch(intent);
     }
-    public void backListener(View view){
-        finish();
-    }
     @SuppressLint("Range")
     public void storeSql(View view){
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH)+1;
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        String date = year + "-" + month + "-" + dayOfMonth;
-        EditText time = findViewById(R.id.editTextTime);
-        EditText price = findViewById(R.id.price);
-        EditText review = findViewById(R.id.review);
+        Log.d("storeSql", dateText.getText().toString());
         ContentValues foodListValues = new ContentValues();
-        foodListValues.put(MyContentProvider.DATE, date);
+        foodListValues.put(MyContentProvider.DATE, dateText.getText().toString());
         foodListValues.put(MyContentProvider.PLACE, selectedPlace);
         foodListValues.put(MyContentProvider.TYPE, selectedWhen);
         foodListValues.put(MyContentProvider.REVIEW, review.getText().toString());
-        foodListValues.put(MyContentProvider.TIME, time.getText().toString());
+        foodListValues.put(MyContentProvider.TIME, timeText.getText().toString());
         foodListValues.put(MyContentProvider.PRICE, price.getText().toString());
         Log.d("imageByte", img.toString());
         foodListValues.put(MyContentProvider.IMAGE_URI,img);
-        Uri insertedItemUri = InputPage.this.getContentResolver().insert(MyContentProvider.CONTENT_URI, foodListValues);
+        Uri insertedItemUri = getContext().getContentResolver().insert(MyContentProvider.CONTENT_URI, foodListValues);
         String lastInsertedId = null;
 
         if (insertedItemUri != null) {
@@ -196,14 +308,14 @@ public class InputPage extends AppCompatActivity {
                 if (c != null)
                     cal = c.toString();
                 ContentValues foodValues = new ContentValues();
-                foodValues.put(FoodProvider.FOOD_LIST_ID, lastInsertedId.toString());
+                foodValues.put(FoodProvider.FOOD_LIST_ID, lastInsertedId);
                 foodValues.put(FoodProvider.NAME, foodName);
                 foodValues.put(FoodProvider.CALORIE, cal);
-                InputPage.this.getContentResolver().insert(FoodProvider.CONTENT_URI, foodValues);
+                getContext().getContentResolver().insert(FoodProvider.CONTENT_URI, foodValues);
             }
         }
-        Toast.makeText(this, "입력이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Toast.makeText(getContext(), "입력이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
     }
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -219,7 +331,7 @@ public class InputPage extends AppCompatActivity {
                         selectedImageUri = uri;
                         imageView.setImageURI(selectedImageUri);
                         try{
-                            ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), selectedImageUri);
+                            ImageDecoder.Source source = ImageDecoder.createSource(getContext().getContentResolver(), selectedImageUri);
                             Bitmap bitmap = ImageDecoder.decodeBitmap(source);
                             img = getBytesFromBitmap(bitmap);
                         }
