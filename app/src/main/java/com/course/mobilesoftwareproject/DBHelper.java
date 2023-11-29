@@ -1,5 +1,4 @@
 package com.course.mobilesoftwareproject;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,15 +15,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
-
     public static DBHelper getInstance(Context context) {
         if (dbHelper == null) {
             dbHelper = new DBHelper(context);
         }
         return dbHelper;
     }
-    // foodlist 테이블 생성 쿼리
     private static final String CREATE_ORDER_TABLE = "CREATE TABLE foodlist (" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "place TEXT," +
@@ -34,8 +30,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "date DATE DEFAULT (CURRENT_DATE)," +
             "time TIME," +
             "price INTEGER);";
-
-    // food 테이블 생성 쿼리
     private static final String CREATE_FOOD_TABLE = "CREATE TABLE food (" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "foodlist_id INTEGER," +

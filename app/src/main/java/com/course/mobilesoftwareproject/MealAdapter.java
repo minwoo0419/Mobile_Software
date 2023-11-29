@@ -1,18 +1,14 @@
 package com.course.mobilesoftwareproject;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.course.mobilesoftwareproject.structure.MealDetail;
 import java.util.List;
 
@@ -36,8 +32,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return Math.max(foodList.size(), 1); // 최소값을 1로 설정
-    }
+        return Math.max(foodList.size(), 1);}
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         if (!foodList.isEmpty()) {

@@ -1,10 +1,6 @@
 package com.course.mobilesoftwareproject;
-
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.course.mobilesoftwareproject.structure.FoodDetail;
 import com.course.mobilesoftwareproject.structure.MealDetail;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,7 +26,6 @@ public class AnalyzeFragment extends Fragment {
     TextView totBreak, totLunch, totCal, totDinner, totDessert;
     ImageView minus, plus;
     ProgressBar pBreak, pLunch, pDinner, pDessert, pCal;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,8 +89,6 @@ public class AnalyzeFragment extends Fragment {
                 plusDate(view);
             }
         });
-
-        // Inflate the layout for this fragment
         return view;
     }
     public void minusDate(View view){

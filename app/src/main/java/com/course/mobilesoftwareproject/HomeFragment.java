@@ -1,24 +1,13 @@
 package com.course.mobilesoftwareproject;
-
-import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.course.mobilesoftwareproject.structure.MealDetail;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -53,23 +42,11 @@ public class HomeFragment extends Fragment {
         TextView priceView = view.findViewById(R.id.todayPaynum);
         calView.setText(String.format("%.2f", todayCal) + "kcal");
         priceView.setText(todayPay.toString() + "원");
-//        ImageView button = view.findViewById(R.id.addBtn);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                addMealListener(view);
-//            }
-//        });
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         MealAdapter adapter = new MealAdapter(foodList);
         recyclerView.setAdapter(adapter);
-        // Inflate the layout for this fragment
         return view;
     }
-//    public void addMealListener(View view){
-//        Intent intent = new Intent(getActivity(), InputPage.class);
-//        startActivity(intent);
-//    }
 }

@@ -3,11 +3,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.course.mobilesoftwareproject.structure.FoodDetail;
-
 import java.util.List;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHolder>{

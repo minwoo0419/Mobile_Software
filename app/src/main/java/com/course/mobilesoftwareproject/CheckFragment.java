@@ -1,25 +1,16 @@
 package com.course.mobilesoftwareproject;
-
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.TextView;
-
 import com.course.mobilesoftwareproject.structure.MealDetail;
-
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -36,7 +27,6 @@ public class CheckFragment extends Fragment {
     Long todayPay;
     TextView calView;
     TextView priceView;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +47,6 @@ public class CheckFragment extends Fragment {
         String[] daysOfWeek = {"일", "월", "화", "수", "목", "금", "토"};
         String dayName = daysOfWeek[dayOfWeek - 1];
         dateText.setText(String.format("%s (%s)", day, dayName));
-        // 캘린더 리스너 설정
         calendarView.setOnDateChangeListener(new DateChangeListener());
         recyclerView = view.findViewById(R.id.recyclerView2);
         layoutManager = new LinearLayoutManager(getContext());

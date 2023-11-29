@@ -1,13 +1,9 @@
 package com.course.mobilesoftwareproject;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
-
 import com.course.mobilesoftwareproject.structure.FoodDetail;
 import com.course.mobilesoftwareproject.structure.MealDetail;
-
 import java.util.ArrayList;
 import java.util.List;
 

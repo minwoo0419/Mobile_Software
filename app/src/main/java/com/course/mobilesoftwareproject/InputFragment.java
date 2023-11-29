@@ -4,18 +4,13 @@ import static android.app.Activity.RESULT_OK;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -32,28 +27,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-
-import com.bumptech.glide.Glide;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -76,7 +61,7 @@ class Food{
 }
 
 public class InputFragment extends Fragment {
-    private String[] places = {"상록원", "기숙사 식당", "그루터기"};
+    private String[] places = {"상록원", "기숙사 식당", "그루터기", "가든쿡", "남산학사 카페", "가온누리 카페"};
     private String[] whens = {"아침", "점심", "저녁", "디저트"};
     private LinearLayout containerLayout;
     private String selectedPlace;
@@ -85,8 +70,6 @@ public class InputFragment extends Fragment {
     private TextView dateText, timeText;
     EditText price, review;
     ImageView imageView;
-    SQLiteDatabase sqlDB;
-    DBHelper dbHelper = new DBHelper(this.getContext());
     Uri selectedImageUri;
     byte[] img;
     Food fo = new Food();
@@ -209,15 +192,12 @@ public class InputFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-
-        // Create a DatePickerDialog with a custom theme
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 requireActivity(),
                 R.style.DialogDatePicker_Theme, // Set your custom theme here
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        // Update the TextView with the selected date
                         String selectedDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                         dateText.setText(selectedDate);
                     }
@@ -226,23 +206,18 @@ public class InputFragment extends Fragment {
                 month,
                 day
         );
-
         datePickerDialog.show();
     }
-
     private void showTimePickerDialog() {
         Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-
-        // Create a TimePickerDialog with a custom theme
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 requireActivity(),
-                R.style.DialogDatePicker_Theme, // Set your custom theme here
+                R.style.DialogDatePicker_Theme,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        // Update the TextView with the selected time
                         String selectedTime = String.format("%02d:%02d", hourOfDay, minute);
                         timeText.setText(selectedTime);
                     }
@@ -251,12 +226,8 @@ public class InputFragment extends Fragment {
                 minute,
                 true
         );
-
         timePickerDialog.show();
     }
-
-
-
     @SuppressLint("ResourceAsColor")
     public void addNewEditText(View view) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
