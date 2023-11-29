@@ -137,6 +137,7 @@ public class InputFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_input, container, false);
         Spinner place = view.findViewById(R.id.place);
         Spinner when = view.findViewById(R.id.when);
+        containerLayout = view.findViewById(R.id.inputFoodNameLayout);
         ArrayAdapter placeAdapter, whenAdapter;
         placeAdapter = new ArrayAdapter(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, places);
         whenAdapter = new ArrayAdapter(getContext(), androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item, whens);
@@ -258,7 +259,6 @@ public class InputFragment extends Fragment {
 
     @SuppressLint("ResourceAsColor")
     public void addNewEditText(View view) {
-        containerLayout = view.findViewById(R.id.inputFoodNameLayout);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT /* layout_width */,
                         LinearLayout.LayoutParams.WRAP_CONTENT /* layout_height */,
@@ -290,11 +290,9 @@ public class InputFragment extends Fragment {
         foodListValues.put(MyContentProvider.REVIEW, review.getText().toString());
         foodListValues.put(MyContentProvider.TIME, timeText.getText().toString());
         foodListValues.put(MyContentProvider.PRICE, price.getText().toString());
-        Log.d("imageByte", img.toString());
         foodListValues.put(MyContentProvider.IMAGE_URI,img);
         Uri insertedItemUri = getContext().getContentResolver().insert(MyContentProvider.CONTENT_URI, foodListValues);
         String lastInsertedId = null;
-
         if (insertedItemUri != null) {
             lastInsertedId = insertedItemUri.getLastPathSegment();
             Log.d("lastInsertedId", lastInsertedId);
