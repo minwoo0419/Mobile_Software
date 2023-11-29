@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.course.mobilesoftwareproject.structure.MealDetail;
+
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -41,12 +43,16 @@ public class HomeFragment extends Fragment {
         TextView calView = view.findViewById(R.id.todayCaloryNum);
         TextView priceView = view.findViewById(R.id.todayPaynum);
         calView.setText(String.format("%.2f", todayCal) + "kcal");
-        priceView.setText(todayPay.toString() + "원");
+        priceView.setText(formatNumberWithCommas(todayPay));
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         MealAdapter adapter = new MealAdapter(foodList);
         recyclerView.setAdapter(adapter);
         return view;
+    }
+    public static String formatNumberWithCommas(long number) {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        return numberFormat.format(number) + "원";
     }
 }

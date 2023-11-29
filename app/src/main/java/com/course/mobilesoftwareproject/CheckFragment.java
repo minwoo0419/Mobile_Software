@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import com.course.mobilesoftwareproject.structure.MealDetail;
+
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -61,7 +63,7 @@ public class CheckFragment extends Fragment {
         calView = view.findViewById(R.id.textView9);
         priceView = view.findViewById(R.id.textView11);
         calView.setText(String.format("%.2f", todayCal) + "kcal");
-        priceView.setText(todayPay.toString() + "원");
+        priceView.setText(formatNumberWithCommas(todayPay));
         MealAdapter adapter = new MealAdapter(foodList);
         recyclerView.setAdapter(adapter);
         return view;
@@ -83,7 +85,7 @@ public class CheckFragment extends Fragment {
             Log.d("calnum", todayCal.toString());
             Log.d("pricenum", todayPay.toString());
             calView.setText(String.format("%.2f", todayCal) + "kcal");
-            priceView.setText(todayPay.toString() + "원");
+            priceView.setText(formatNumberWithCommas(todayPay));
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE");
             String dayOfWeek = dateFormat.format(calendar.getTime());
             MealAdapter adapter = new MealAdapter(foodList);
@@ -120,5 +122,9 @@ public class CheckFragment extends Fragment {
                 koreanDayOfWeek = "알 수 없음";
         }
         return koreanDayOfWeek;
+    }
+    public static String formatNumberWithCommas(long number) {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        return numberFormat.format(number) + "원";
     }
 }

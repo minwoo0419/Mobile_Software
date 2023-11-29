@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.course.mobilesoftwareproject.structure.MealDetail;
+
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,8 +21,8 @@ public class AnalyzeFragment extends Fragment {
     String day;
     Double totalCal;
     Long totalBreak, totalLunch, totalDinner, totalDessert;
-    double breakCnt, lunchCnt, dinnerCnt, dessertCnt;
-    Double avgBreak, avgLunch, avgDinner, avgDessert;
+    long breakCnt, lunchCnt, dinnerCnt, dessertCnt;
+    Long avgBreak, avgLunch, avgDinner, avgDessert;
     Long avgPay;
     TextView breakView, lunchView, dinnerView, dessertView, dateView;
     TextView totBreak, totLunch, totCal, totDinner, totDessert;
@@ -56,10 +58,14 @@ public class AnalyzeFragment extends Fragment {
         totDinner = view.findViewById(R.id.tot_dinner);
         totDessert = view.findViewById(R.id.tot_dessert);
         totCal = view.findViewById(R.id.tot_cal);
-        totBreak.setText(totalBreak.toString()+"원");
-        totLunch.setText(totalLunch.toString()+"원");
-        totDinner.setText(totalDinner.toString()+"원");
-        totDessert.setText(totalDessert.toString()+"원");
+        breakView.setText(formatNumberWithCommas(avgBreak));
+        lunchView.setText(formatNumberWithCommas(avgLunch));
+        dinnerView.setText(formatNumberWithCommas(avgDinner));
+        dessertView.setText(formatNumberWithCommas(avgDessert));
+        totBreak.setText(formatNumberWithCommas(totalBreak));
+        totLunch.setText(formatNumberWithCommas(totalLunch));
+        totDinner.setText(formatNumberWithCommas(totalDinner));
+        totDessert.setText(formatNumberWithCommas(totalDessert));
         totCal.setText(totalCal.toString()+"kcal");
         pCal = view.findViewById(R.id.progresscal);
         pBreak.setMax(620000);
@@ -73,10 +79,6 @@ public class AnalyzeFragment extends Fragment {
         pDessert.setProgress(totalDessert.intValue());
         pCal.setProgress(totalCal.intValue());
         dateView.setText(day);
-        breakView.setText(avgBreak.toString());
-        lunchView.setText(avgLunch.toString());
-        dinnerView.setText(avgDinner.toString());
-        dessertView.setText(avgDessert.toString());
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,14 +106,14 @@ public class AnalyzeFragment extends Fragment {
         day = year + "-" + month;
         dateView.setText(day);
         calcul(day);
-        breakView.setText(avgBreak.toString());
-        lunchView.setText(avgLunch.toString());
-        dinnerView.setText(avgDinner.toString());
-        dessertView.setText(avgDessert.toString());
-        totBreak.setText(totalBreak.toString()+"원");
-        totLunch.setText(totalLunch.toString()+"원");
-        totDinner.setText(totalDinner.toString()+"원");
-        totDessert.setText(totalDessert.toString()+"원");
+        breakView.setText(formatNumberWithCommas(avgBreak));
+        lunchView.setText(formatNumberWithCommas(avgLunch));
+        dinnerView.setText(formatNumberWithCommas(avgDinner));
+        dessertView.setText(formatNumberWithCommas(avgDessert));
+        totBreak.setText(formatNumberWithCommas(totalBreak));
+        totLunch.setText(formatNumberWithCommas(totalLunch));
+        totDinner.setText(formatNumberWithCommas(totalDinner));
+        totDessert.setText(formatNumberWithCommas(totalDessert));
         totCal.setText(totalCal.toString()+"kcal");
         pBreak.setProgress(totalBreak.intValue());
         pLunch.setProgress(totalLunch.intValue());
@@ -133,14 +135,14 @@ public class AnalyzeFragment extends Fragment {
         day = year + "-" + month;
         dateView.setText(day);
         calcul(day);
-        breakView.setText(avgBreak.toString());
-        lunchView.setText(avgLunch.toString());
-        dinnerView.setText(avgDinner.toString());
-        dessertView.setText(avgDessert.toString());
-        totBreak.setText(totalBreak.toString()+"원");
-        totLunch.setText(totalLunch.toString()+"원");
-        totDinner.setText(totalDinner.toString()+"원");
-        totDessert.setText(totalDessert.toString()+"원");
+        breakView.setText(formatNumberWithCommas(avgBreak));
+        lunchView.setText(formatNumberWithCommas(avgLunch));
+        dinnerView.setText(formatNumberWithCommas(avgDinner));
+        dessertView.setText(formatNumberWithCommas(avgDessert));
+        totBreak.setText(formatNumberWithCommas(totalBreak));
+        totLunch.setText(formatNumberWithCommas(totalLunch));
+        totDinner.setText(formatNumberWithCommas(totalDinner));
+        totDessert.setText(formatNumberWithCommas(totalDessert));
         totCal.setText(totalCal.toString()+"kcal");
         pBreak.setProgress(totalBreak.intValue());
         pLunch.setProgress(totalLunch.intValue());
@@ -159,10 +161,10 @@ public class AnalyzeFragment extends Fragment {
         lunchCnt = 0;
         dinnerCnt = 0;
         dessertCnt = 0;
-        avgBreak = 0.0;
-        avgLunch = 0.0;
-        avgDinner = 0.0;
-        avgDessert = 0.0;
+        avgBreak = 0L;
+        avgLunch = 0L;
+        avgDinner = 0L;
+        avgDessert = 0L;
         avgPay = 0L;
         foodList = mealDetailRepository.getMealDetailByMonth(this.day);
         for (int i = 0 ; i < foodList.size() ; i++){
@@ -197,5 +199,10 @@ public class AnalyzeFragment extends Fragment {
             avgDinner = totalDinner / dinnerCnt;
         if (dessertCnt > 0)
             avgDessert = totalDessert / dessertCnt;
+    }
+    public static String formatNumberWithCommas(long number) {
+        // NumberFormat 클래스를 사용하여 숫자를 3자리 단위로 포맷팅
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        return numberFormat.format(number) + "원";
     }
 }

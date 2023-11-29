@@ -10,6 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.course.mobilesoftwareproject.structure.MealDetail;
+
+import java.text.NumberFormat;
 import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> {
@@ -76,7 +78,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
         }
         public void bind(MealDetail data) {
             type.setText(data.getType());
-            price.setText(data.getPrice().toString());
+            price.setText(formatNumberWithCommas(data.getPrice()));
             String calStr = String.format("%.2f", data.getCalories());
             cal.setText(calStr);
             name.setText(data.getName());
@@ -91,5 +93,9 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MyViewHolder> 
         public EmptyViewHolder(View itemView) {
             super(itemView);
         }
+    }
+    public static String formatNumberWithCommas(long number) {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        return numberFormat.format(number) + "원";
     }
 }

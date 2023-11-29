@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.course.mobilesoftwareproject.structure.FoodDetail;
 import com.course.mobilesoftwareproject.structure.MealDetail;
+
+import java.text.NumberFormat;
 import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
@@ -33,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
         typeView.setText(mealDetail.getType());
         dateView.setText(setDay());
         whereView.setText(mealDetail.getPlace());
-        priceView.setText("총 " + mealDetail.getPrice().toString() + "원");
+        priceView.setText("총 " + formatNumberWithCommas(mealDetail.getPrice()));
         reviewView.setText(mealDetail.getReview());
         imageView.setImageBitmap(mealDetail.getImage());
         RecyclerView recyclerView = findViewById(R.id.detailRecycler);
@@ -50,5 +52,9 @@ public class DetailActivity extends AppCompatActivity {
     }
     public void backListener(View view){
         finish();
+    }
+    public static String formatNumberWithCommas(long number) {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        return numberFormat.format(number) + "원";
     }
 }

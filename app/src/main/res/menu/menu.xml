@@ -12,13 +12,13 @@
         android:enabled="true"
         ></item>
     <item
-        android:id="@+id/analyze"
-        android:title="분석"
-        android:icon="@drawable/ic_calc"
-        android:enabled="true"/>
-    <item
         android:id="@+id/check"
         android:title="조회"
         android:icon="@drawable/ic_calendar"
+        android:enabled="true"/>
+    <item
+        android:id="@+id/analyze"
+        android:title="분석"
+        android:icon="@drawable/ic_calc"
         android:enabled="true"/>
 </menu>

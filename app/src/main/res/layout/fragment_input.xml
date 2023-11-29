@@ -75,7 +75,7 @@
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintTop_toBottomOf="@+id/inputFoodNameLayout" />
 
         <ImageView
             android:id="@+id/inputFoodImg"
@@ -152,8 +152,9 @@
             android:fontFamily="@font/lato_bold"
             android:text="식사 후기"
             android:textColor="@color/black"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputFoodNameLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/price" />
 
         <Button
             android:id="@+id/inputBtn"
@@ -185,7 +186,7 @@
             android:textSize="14dp"
             app:layout_constraintEnd_toStartOf="@+id/foodNameAdd"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/price" />
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <ImageView
             android:id="@+id/foodNameAdd"
@@ -196,7 +197,7 @@
             android:clickable="true"
             android:onClick="addNewEditText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/price"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
             app:srcCompat="@drawable/add" />
 
         <LinearLayout
@@ -205,11 +206,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="40dp"
+            android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/foodName1"></LinearLayout>
 
         <TextView
