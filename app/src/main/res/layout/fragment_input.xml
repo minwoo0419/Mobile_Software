@@ -37,7 +37,7 @@
         <Spinner
             android:id="@+id/place"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
@@ -51,7 +51,7 @@
         <Spinner
             android:id="@+id/when"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
@@ -65,7 +65,7 @@
         <EditText
             android:id="@+id/price"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:ems="10"
@@ -177,7 +177,7 @@
         <EditText
             android:id="@+id/foodName1"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:ems="10"
             android:fontFamily="@font/lato_regular"
@@ -192,7 +192,7 @@
             android:id="@+id/foodNameAdd"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="10dp"
             android:clickable="true"
             android:onClick="addNewEditText"
@@ -216,7 +216,7 @@
         <TextView
             android:id="@+id/editTimeText"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
@@ -235,7 +235,7 @@
         <TextView
             android:id="@+id/editDateText"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"

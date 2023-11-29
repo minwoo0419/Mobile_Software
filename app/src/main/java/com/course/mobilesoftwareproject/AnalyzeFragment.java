@@ -68,8 +68,8 @@ public class AnalyzeFragment extends Fragment {
         totDessert.setText(formatNumberWithCommas(totalDessert));
         totCal.setText(totalCal.toString()+"kcal");
         pCal = view.findViewById(R.id.progresscal);
-        pBreak.setMax(620000);
-        pLunch.setMax(620000);
+        pBreak.setMax(6200000);
+        pLunch.setMax(6200000);
         pDinner.setMax(620000);
         pDessert.setMax(620000);
         pCal.setMax(77500);
